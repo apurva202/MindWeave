@@ -10,7 +10,7 @@ export default function Topics({ subjects, topics, setTopics }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const subject = subjects?.find((s) => s.slug === subjectSlug);
-  const subjectTopics = topics[subjectSlug] || [];
+  const subjectTopics = topics.filter((t) => t.subjectSlug === subjectSlug);
 
   if (!subject) {
     return (
@@ -32,10 +32,7 @@ export default function Topics({ subjects, topics, setTopics }) {
   }
 
   const handleAddTopic = (newTopic) => {
-    setTopics((prev) => ({
-      ...prev,
-      [subjectSlug]: [...(prev[subjectSlug] || []), newTopic]
-    }));
+    setTopics((prev) => [...prev, newTopic]);
     setIsModalOpen(false);
   };
 
@@ -45,7 +42,6 @@ export default function Topics({ subjects, topics, setTopics }) {
 
   return (
     <div className="w-full h-full flex flex-col">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 px-1">
         <div className="flex items-center gap-4">
           <button
@@ -74,7 +70,6 @@ export default function Topics({ subjects, topics, setTopics }) {
         </button>
       </div>
 
-      {/* Content Area */}
       {subjectTopics.length === 0 ? (
         <div className="flex flex-col items-center justify-center flex-1 py-16 px-4 text-center bg-slate-800/30 border border-slate-700/50 rounded-xl border-dashed">
           <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-4 border border-slate-700 shadow-sm">
@@ -101,12 +96,12 @@ export default function Topics({ subjects, topics, setTopics }) {
         </div>
       )}
 
-      {/* Modal */}
       <AddTopicModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onAdd={handleAddTopic}
         existingTopics={subjectTopics}
+        subjectSlug={subjectSlug}
       />
     </div>
   );

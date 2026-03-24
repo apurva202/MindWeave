@@ -7,7 +7,7 @@ import TopicDetail from "./pages/TopicDetail";
 
 export default function App() {
   const [subjects, setSubjects] = useState([]);
-  const [topics, setTopics] = useState({});
+  const [topics, setTopics] = useState([]);
   return (
     <BrowserRouter>
       <Routes>

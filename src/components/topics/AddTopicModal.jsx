@@ -4,7 +4,8 @@ export default function AddTopicModal({
   isOpen,
   onClose,
   onAdd,
-  existingTopics
+  existingTopics,
+  subjectSlug
 }) {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
@@ -23,7 +24,7 @@ export default function AddTopicModal({
     const slug = trimmedName.toLowerCase().trim().split(" ").join("-").replace(/[^a-z0-9-]/g, "");
 
     const isDuplicate = existingTopics.some(
-      (topic) => topic.slug === slug
+      (topic) => topic.slug === slug && topic.subjectSlug === subjectSlug
     );
 
     if (isDuplicate) {
@@ -34,6 +35,7 @@ export default function AddTopicModal({
     const newTopic = {
       name: trimmedName,
       slug,
+      subjectSlug,
     };
 
     onAdd(newTopic);
