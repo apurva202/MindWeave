@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 
-const COLORS = ["#6366f1", "#8b5cf6", "#22c55e", "#eab308", "#ef4444"];
-
-const slugify = (text) => text.toLowerCase().trim().split(" ").join("-").replace(/[^a-z0-9-]/g, "");
-
-export default function AddSubjectModal({
+export default function AddTopicModal({
   isOpen,
   onClose,
   onAdd,
-  existingSubjects,
+  existingTopics
 }) {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
@@ -20,32 +16,29 @@ export default function AddSubjectModal({
     const trimmedName = name.trim();
 
     if (!trimmedName) {
-      setError("Subject name cannot be empty.");
+      setError("Topic name cannot be empty.");
       return;
     }
 
-    const slug = slugify(trimmedName);
+    const slug = trimmedName.toLowerCase().trim().split(" ").join("-").replace(/[^a-z0-9-]/g, "");
 
-    const isDuplicate = existingSubjects.some(
-      (subject) => subject.slug === slug
+    const isDuplicate = existingTopics.some(
+      (topic) => topic.slug === slug
     );
 
     if (isDuplicate) {
-      setError("A subject with this name already exists.");
+      setError("A topic with this name already exists in this subject.");
       return;
     }
 
-    const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const newSubject = {
+    const newTopic = {
       name: trimmedName,
       slug,
-      color: randomColor,
     };
 
-    onAdd(newSubject);
+    onAdd(newTopic);
     setName("");
     setError("");
-    onClose();
   };
 
   const handleClose = () => {
@@ -65,19 +58,19 @@ export default function AddSubjectModal({
       >
         <div className="p-6">
           <h2 className="text-2xl font-semibold text-slate-100 mb-6">
-            Add New Subject
+            Add New Topic
           </h2>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label
-                htmlFor="subject-name"
+                htmlFor="topic-name"
                 className="block text-sm font-medium text-slate-300 mb-2"
               >
-                Subject Name
+                Topic Name
               </label>
               <input
-                id="subject-name"
+                id="topic-name"
                 type="text"
                 value={name}
                 onChange={(e) => {
@@ -89,7 +82,7 @@ export default function AddSubjectModal({
                     ? "border-red-500 focus:ring-red-500"
                     : "border-slate-700 focus:ring-indigo-500"
                 } rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2`}
-                placeholder="e.g., Mathematics, React.js..."
+                placeholder="e.g., Arrays, Newton's Laws..."
                 autoFocus
               />
               {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
@@ -107,7 +100,7 @@ export default function AddSubjectModal({
                 type="submit"
                 className="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors shadow-sm shadow-indigo-600/20"
               >
-                Add Subject
+                Add Topic
               </button>
             </div>
           </form>
