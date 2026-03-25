@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useApp } from "../context/AppContext";
 import TaskItem from "../components/tasks/TaskItem";
 
 export default function Revision() {
   const { tasks, setTasks, subjects, topics } = useApp();
-  const now = new Date().setHours(0, 0, 0, 0);
+  const [now, setNow] = useState(() => new Date().setHours(0, 0, 0, 0));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date().setHours(0, 0, 0, 0));
+    }, 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const dueTasks = tasks.filter(
     (t) =>

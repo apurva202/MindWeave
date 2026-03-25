@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, CheckSquare } from "lucide-react";
 import TaskItem from "../components/tasks/TaskItem";
@@ -15,6 +15,12 @@ export default function TopicDetail() {
   const topic = topics.find(
     (t) => t.slug === topicSlug && t.subjectSlug === subjectSlug,
   );
+
+  useEffect(() => {
+    if (subjects.length > 0 && (!subject || !topic)) {
+      navigate("/subjects");
+    }
+  }, [subject, topic, subjects.length, navigate]);
 
   if (!subject || !topic) {
     return (

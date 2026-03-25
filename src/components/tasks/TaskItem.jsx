@@ -1,5 +1,6 @@
 import React from "react";
 import { Check, Clock, Trash2 } from "lucide-react";
+import { useApp } from "../../context/AppContext";
 
 export default function TaskItem({
   task,
@@ -11,6 +12,11 @@ export default function TaskItem({
   onReviseNow,
   showRevisionActions,
 }) {
+  const { subjects, topics } = useApp();
+
+  const subjectName = subjects.find((s) => s.slug === task.subjectSlug)?.name ?? task.subjectSlug;
+  const topicName = topics.find((t) => t.slug === task.topicSlug && t.subjectSlug === task.subjectSlug)?.name ?? task.topicSlug;
+
   const formatNextRevision = (timestamp) => {
     return new Date(timestamp).toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -60,7 +66,7 @@ export default function TaskItem({
             <div className="flex flex-wrap items-center gap-2 mt-1 w-full">
               {showContext && (
                 <span className="text-xs text-slate-400 truncate max-w-full">
-                  {task.subjectSlug} • {task.topicSlug}
+                  {subjectName} • {topicName}
                 </span>
               )}
               {task.completed && task.nextRevisionAt && !task.revisionStopped && (
