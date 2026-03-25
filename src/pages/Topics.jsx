@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, FolderOpen } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import TopicItem from "../components/topics/TopicItem";
 import AddTopicModal from "../components/topics/AddTopicModal";
+import DeleteTopicModal from "../components/topics/DeleteTopicModal";
 import { useApp } from "../context/AppContext";
 
 export default function Topics() {
@@ -10,6 +12,7 @@ export default function Topics() {
   const { subjectSlug } = useParams();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const subject = subjects?.find((s) => s.slug === subjectSlug);
   const subjectTopics = topics.filter((t) => t.subjectSlug === subjectSlug);
@@ -54,13 +57,25 @@ export default function Topics() {
           </div>
         </div>
 
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-sm shadow-indigo-600/20 shrink-0"
-        >
-          <Plus className="w-5 h-5" />
-          <span>Add Topic</span>
-        </button>
+        <div className="flex items-center gap-3">
+          {subjectTopics.length > 0 && (
+            <button
+              onClick={() => setIsDeleteModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-red-400 hover:text-red-300 border border-slate-700/50 rounded-lg font-medium transition-colors shrink-0 cursor-pointer"
+              title="Delete Topics"
+            >
+              <Trash2 className="w-5 h-5" />
+              <span className="hidden sm:inline">Delete</span>
+            </button>
+          )}
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-sm shadow-indigo-600/20 shrink-0"
+          >
+            <Plus className="w-5 h-5" />
+            <span>Add Topic</span>
+          </button>
+        </div>
       </div>
 
       {subjectTopics.length === 0 ? (
@@ -96,6 +111,12 @@ export default function Topics() {
       <AddTopicModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        subjectSlug={subjectSlug}
+      />
+      
+      <DeleteTopicModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
         subjectSlug={subjectSlug}
       />
     </div>

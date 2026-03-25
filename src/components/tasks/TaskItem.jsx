@@ -1,9 +1,10 @@
 import React from "react";
-import { Check, Clock } from "lucide-react";
+import { Check, Clock, Trash2 } from "lucide-react";
 
 export default function TaskItem({
   task,
   onToggle,
+  onDelete,
   showContext,
   onRevise,
   onStopRevision,
@@ -79,6 +80,20 @@ export default function TaskItem({
             )}
           </div>
         </div>
+
+        {onDelete && !showRevisionActions && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
+            className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 ml-auto cursor-pointer"
+            title="Delete Task"
+            aria-label="Delete Task"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        )}
 
         {showRevisionActions && (
           <div

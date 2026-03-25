@@ -6,7 +6,7 @@ import AddTaskModal from "../components/tasks/AddTaskModal";
 import { useApp } from "../context/AppContext";
 
 export default function TopicDetail() {
-  const { subjects, topics, tasks, setTasks } = useApp();
+  const { subjects, topics, tasks, setTasks, deleteTask } = useApp();
   const { subjectSlug, topicSlug } = useParams();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -112,6 +112,11 @@ export default function TopicDetail() {
                 key={task.id}
                 task={task}
                 onToggle={() => toggleTask(task.id)}
+                onDelete={() => {
+                  if (window.confirm("Are you sure you want to delete this task?")) {
+                    deleteTask(task.id);
+                  }
+                }}
               />
             ))}
           </div>

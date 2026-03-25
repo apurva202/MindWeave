@@ -1,24 +1,39 @@
 import React, { useState } from "react";
 import { Plus, BookOpen } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import SubjectCard from "../components/subjects/SubjectCard";
 import AddSubjectModal from "../components/subjects/AddSubjectModal";
+import DeleteSubjectModal from "../components/subjects/DeleteSubjectModal";
 import { useApp } from "../context/AppContext";
 
 export default function Subjects() {
   const { subjects } = useApp();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   return (
     <div className="w-full h-full flex flex-col">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
         <h1 className="text-3xl font-bold text-slate-100">Subjects</h1>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-sm shadow-indigo-600/20 shrink-0"
-        >
-          <Plus className="w-5 h-5" />
-          <span>Add Subject</span>
-        </button>
+        <div className="flex items-center gap-3">
+          {subjects.length > 0 && (
+            <button
+              onClick={() => setIsDeleteModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-red-400 hover:text-red-300 border border-slate-700/50 rounded-lg font-medium transition-colors shrink-0 cursor-pointer"
+              title="Delete Subjects"
+            >
+              <Trash2 className="w-5 h-5" />
+              <span className="hidden sm:inline">Delete</span>
+            </button>
+          )}
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-sm shadow-indigo-600/20 shrink-0"
+          >
+            <Plus className="w-5 h-5" />
+            <span>Add Subject</span>
+          </button>
+        </div>
       </div>
 
       {subjects.length === 0 ? (
@@ -51,6 +66,11 @@ export default function Subjects() {
       <AddSubjectModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+      
+      <DeleteSubjectModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
       />
     </div>
   );
