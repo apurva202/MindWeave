@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+import { useApp } from "../../context/AppContext";
 
 const COLORS = ["#6366f1", "#8b5cf6", "#22c55e", "#eab308", "#ef4444"];
 
-const slugify = (text) => text.toLowerCase().trim().split(" ").join("-").replace(/[^a-z0-9-]/g, "");
+const slugify = (text) =>
+  text
+    .toLowerCase()
+    .trim()
+    .split(" ")
+    .join("-")
+    .replace(/[^a-z0-9-]/g, "");
 
-export default function AddSubjectModal({
-  isOpen,
-  onClose,
-  onAdd,
-  existingSubjects,
-}) {
+export default function AddSubjectModal({ isOpen, onClose }) {
+  const { subjects, setSubjects } = useApp();
   const [name, setName] = useState("");
   const [error, setError] = useState("");
 
@@ -26,9 +29,7 @@ export default function AddSubjectModal({
 
     const slug = slugify(trimmedName);
 
-    const isDuplicate = existingSubjects.some(
-      (subject) => subject.slug === slug
-    );
+    const isDuplicate = subjects.some((subject) => subject.slug === slug);
 
     if (isDuplicate) {
       setError("A subject with this name already exists.");
@@ -42,7 +43,7 @@ export default function AddSubjectModal({
       color: randomColor,
     };
 
-    onAdd(newSubject);
+    setSubjects((prev) => [...prev, newSubject]);
     setName("");
     setError("");
     onClose();

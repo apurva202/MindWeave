@@ -3,8 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, FolderOpen } from "lucide-react";
 import TopicItem from "../components/topics/TopicItem";
 import AddTopicModal from "../components/topics/AddTopicModal";
+import { useApp } from "../context/AppContext";
 
-export default function Topics({ subjects, topics, setTopics }) {
+export default function Topics() {
+  const { subjects, topics } = useApp();
   const { subjectSlug } = useParams();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +22,7 @@ export default function Topics({ subjects, topics, setTopics }) {
             Subject not found
           </h1>
           <button
-            onClick={() => navigate('/subjects')}
+            onClick={() => navigate("/subjects")}
             className="flex items-center justify-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium transition-colors mx-auto w-full sm:w-auto"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -31,21 +33,12 @@ export default function Topics({ subjects, topics, setTopics }) {
     );
   }
 
-  const handleAddTopic = (newTopic) => {
-    setTopics((prev) => [...prev, newTopic]);
-    setIsModalOpen(false);
-  };
-
-  const handleTopicClick = (topicId) => {
-    console.log("Clicked topic:", topicId);
-  };
-
   return (
     <div className="w-full h-full flex flex-col">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 px-1">
         <div className="flex items-center gap-4">
           <button
-            onClick={() => navigate('/subjects')}
+            onClick={() => navigate("/subjects")}
             className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-slate-100 rounded-lg transition-colors border border-slate-700/50"
             aria-label="Go back"
           >
@@ -91,7 +84,11 @@ export default function Topics({ subjects, topics, setTopics }) {
       ) : (
         <div className="flex flex-col gap-3">
           {subjectTopics.map((topic) => (
-            <TopicItem key={topic.slug} topic={topic} subjectSlug={subjectSlug} />
+            <TopicItem
+              key={topic.slug}
+              topic={topic}
+              subjectSlug={subjectSlug}
+            />
           ))}
         </div>
       )}
@@ -99,8 +96,6 @@ export default function Topics({ subjects, topics, setTopics }) {
       <AddTopicModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onAdd={handleAddTopic}
-        existingTopics={subjectTopics}
         subjectSlug={subjectSlug}
       />
     </div>

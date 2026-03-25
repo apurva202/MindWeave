@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useApp } from "../../context/AppContext";
 
-const slugify = (text) =>
-  text
-    .toLowerCase()
-    .trim()
-    .split(" ")
-    .join("-")
-    .replace(/[^a-z0-9-]/g, "");
-
-export default function AddTopicModal({ isOpen, onClose, subjectSlug }) {
-  const { topics, setTopics } = useApp();
+export default function AddTaskModal({
+  isOpen,
+  onClose,
+  subjectSlug,
+  topicSlug,
+}) {
+  const { tasks, setTasks } = useApp();
   const [name, setName] = useState("");
   const [error, setError] = useState("");
 
@@ -21,28 +18,32 @@ export default function AddTopicModal({ isOpen, onClose, subjectSlug }) {
     const trimmedName = name.trim();
 
     if (!trimmedName) {
-      setError("Topic name cannot be empty.");
+      setError("Task name cannot be empty.");
       return;
     }
 
-    const slug = slugify(trimmedName);
-
-    const isDuplicate = topics.some(
-      (topic) => topic.subjectSlug === subjectSlug && topic.slug === slug,
+    const topicTasks = tasks.filter(
+      (t) => t.subjectSlug === subjectSlug && t.topicSlug === topicSlug,
+    );
+    const isDuplicate = topicTasks.some(
+      (task) => task.name.toLowerCase() === trimmedName.toLowerCase(),
     );
 
     if (isDuplicate) {
-      setError("A topic with this name already exists in this subject.");
+      setError("A task with this name already exists in this topic.");
       return;
     }
 
-    const newTopic = {
+    const newTask = {
+      id: crypto.randomUUID(),
       name: trimmedName,
-      slug,
       subjectSlug,
+      topicSlug,
+      completed: false,
+      createdAt: Date.now(),
     };
 
-    setTopics((prev) => [...prev, newTopic]);
+    setTasks((prev) => [...prev, newTask]);
     setName("");
     setError("");
     onClose();
@@ -65,19 +66,19 @@ export default function AddTopicModal({ isOpen, onClose, subjectSlug }) {
       >
         <div className="p-6">
           <h2 className="text-2xl font-semibold text-slate-100 mb-6">
-            Add New Topic
+            Add New Task
           </h2>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label
-                htmlFor="topic-name"
+                htmlFor="task-name"
                 className="block text-sm font-medium text-slate-300 mb-2"
               >
-                Topic Name
+                Task Action
               </label>
               <input
-                id="topic-name"
+                id="task-name"
                 type="text"
                 value={name}
                 onChange={(e) => {
@@ -89,7 +90,7 @@ export default function AddTopicModal({ isOpen, onClose, subjectSlug }) {
                     ? "border-red-500 focus:ring-red-500"
                     : "border-slate-700 focus:ring-indigo-500"
                 } rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2`}
-                placeholder="e.g., Arrays, Newton's Laws..."
+                placeholder="e.g., Read chapter 4, Complete exercises..."
                 autoFocus
               />
               {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
@@ -107,7 +108,7 @@ export default function AddTopicModal({ isOpen, onClose, subjectSlug }) {
                 type="submit"
                 className="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors shadow-sm shadow-indigo-600/20"
               >
-                Add Topic
+                Add Task
               </button>
             </div>
           </form>
