@@ -33,51 +33,53 @@ export default function TaskItem({
           : "border-slate-700/50 hover:border-slate-600"
       }`}
     >
-      <div className="flex items-center gap-4 w-full">
-        <div
-          className={`w-6 h-6 shrink-0 rounded border flex items-center justify-center transition-colors ${
-            task.completed
-              ? "bg-indigo-500 border-indigo-500"
-              : "border-slate-500 group-hover:border-indigo-400"
-          }`}
-        >
-          {task.completed && (
-            <Check className="w-4 h-4 text-white" strokeWidth={3} />
-          )}
-        </div>
-
-        <div className="flex flex-col min-w-0 flex-1">
-          <span
-            className={`font-medium transition-colors truncate ${
+      <div className="flex flex-wrap items-center gap-4 w-full">
+        <div className="flex items-center gap-4 flex-1 min-w-60">
+          <div
+            className={`w-6 h-6 shrink-0 rounded border flex items-center justify-center transition-colors ${
               task.completed
-                ? "text-slate-500 line-through"
-                : "text-slate-200 group-hover:text-white"
+                ? "bg-indigo-500 border-indigo-500"
+                : "border-slate-500 group-hover:border-indigo-400"
             }`}
           >
-            {task.name}
-          </span>
-          <div className="flex items-center gap-3 overflow-hidden">
-            {showContext && (
-              <span className="text-xs text-slate-400 mt-0.5 truncate shrink-0">
-                {task.subjectSlug} • {task.topicSlug}
-              </span>
+            {task.completed && (
+              <Check className="w-4 h-4 text-white" strokeWidth={3} />
             )}
-            {task.completed && task.nextRevisionAt && !task.revisionStopped && (
-              <span className="text-xs text-indigo-400/80 mt-0.5 font-medium flex items-center gap-1 shrink-0">
-                <Clock className="w-3 h-3" />
-                Next revision: {formatNextRevision(task.nextRevisionAt)}
-              </span>
-            )}
-            {task.completed && task.nextRevisionAt && !task.revisionStopped  && (
-              <span className="text-[10px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0 mt-0.5">
-                {task.revisionCount} Revision
-              </span>
-            )}
-            {task.completed && task.revisionStopped  && (
-              <span className="text-[10px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 shrink-0 mt-0.5">
-                Mastered
-              </span>
-            )}
+          </div>
+
+          <div className="flex flex-col min-w-0 flex-1">
+            <span
+              className={`font-medium transition-colors truncate ${
+                task.completed
+                  ? "text-slate-500 line-through"
+                  : "text-slate-200 group-hover:text-white"
+              }`}
+            >
+              {task.name}
+            </span>
+            <div className="flex flex-wrap items-center gap-2 mt-1 w-full">
+              {showContext && (
+                <span className="text-xs text-slate-400 truncate max-w-full">
+                  {task.subjectSlug} • {task.topicSlug}
+                </span>
+              )}
+              {task.completed && task.nextRevisionAt && !task.revisionStopped && (
+                <span className="text-xs text-indigo-400/80 font-medium flex items-center gap-1 shrink-0 whitespace-nowrap">
+                  <Clock className="w-3 h-3" />
+                  Next revision: {formatNextRevision(task.nextRevisionAt)}
+                </span>
+              )}
+              {task.completed && task.nextRevisionAt && !task.revisionStopped && (
+                <span className="text-[10px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0 whitespace-nowrap">
+                  {task.revisionCount} Revision
+                </span>
+              )}
+              {task.completed && task.revisionStopped && (
+                <span className="text-[10px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 shrink-0 whitespace-nowrap">
+                  Mastered
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -87,7 +89,7 @@ export default function TaskItem({
               e.stopPropagation();
               onDelete();
             }}
-            className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 ml-auto cursor-pointer"
+            className="p-2 sm:text-slate-500 bg-red-500/10 text-red-400 sm:bg-transparent sm:hover:text-red-400 sm:hover:bg-red-500/10 rounded-lg transition-colors shrink-0 ml-auto cursor-pointer"
             title="Delete Task"
             aria-label="Delete Task"
           >
@@ -97,13 +99,13 @@ export default function TaskItem({
 
         {showRevisionActions && (
           <div
-            className="flex items-center gap-3 shrink-0 ml-auto"
+            className="flex items-center gap-2 sm:gap-3 shrink-0 ml-auto sm:ml-0"
             onClick={(e) => e.stopPropagation()}
           >
             {onRevise && (
               <button
                 onClick={onRevise}
-                className="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors px-2 py-1 rounded hover:bg-indigo-500/10"
+                className="text-xs sm:text-sm font-bold sm:font-medium text-indigo-400 bg-transparent hover:bg-indigo-500/20 sm:hover:bg-indigo-500/10 px-3 py-1.5 sm:px-2 sm:py-1 rounded-lg sm:rounded transition-colors whitespace-nowrap"
               >
                 Mark Revised
               </button>
@@ -111,7 +113,7 @@ export default function TaskItem({
             {onStopRevision && (
               <button
                 onClick={onStopRevision}
-                className="text-sm font-medium text-red-400 hover:text-red-300 transition-colors px-2 py-1 rounded hover:bg-red-500/10"
+                className="text-xs sm:text-sm font-bold sm:font-medium text-red-400 bg-transparent hover:bg-red-500/20 sm:hover:bg-red-500/10 px-3 py-1.5 sm:px-2 sm:py-1 rounded-lg sm:rounded transition-colors whitespace-nowrap"
               >
                 Mastered
               </button>
@@ -119,7 +121,7 @@ export default function TaskItem({
             {onReviseNow && (
               <button
                 onClick={onReviseNow}
-                className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors px-2 py-1 rounded hover:bg-blue-500/10"
+                className="text-xs sm:text-sm font-bold sm:font-medium text-blue-400 bg-transparent hover:bg-blue-500/20 sm:hover:bg-blue-500/10 px-3 py-1.5 sm:px-2 sm:py-1 rounded-lg sm:rounded transition-colors whitespace-nowrap"
               >
                 Revise Now
               </button>
