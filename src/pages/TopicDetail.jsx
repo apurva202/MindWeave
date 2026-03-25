@@ -39,7 +39,22 @@ export default function TopicDetail() {
 
   const toggleTask = (id) => {
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)),
+      prev.map((t) => {
+        if (t.id !== id) return t;
+
+        if (t.completed && t.revisionCount > 1) return t;
+
+        const isNowCompleted = !t.completed;
+        const updates = { completed: isNowCompleted };
+
+        if (isNowCompleted && t.revisionCount === 0 && !t.nextRevisionAt) {
+          updates.revisionCount = 1;
+          updates.lastRevisedAt = Date.now();
+          updates.nextRevisionAt = Date.now() + 24 * 60 * 60 * 1000;
+        }
+
+        return { ...t, ...updates };
+      }),
     );
   };
 

@@ -73,6 +73,10 @@ export default function AddTaskModal({
       topicSlug: finalTopicSlug,
       completed: false,
       createdAt: Date.now(),
+      revisionCount: 0,
+      lastRevisedAt: null,
+      nextRevisionAt: null,
+      revisionStopped: false
     };
 
     setTasks((prev) => [...prev, newTask]);
