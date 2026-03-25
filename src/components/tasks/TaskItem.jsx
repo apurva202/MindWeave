@@ -1,7 +1,7 @@
 import React from "react";
 import { Check } from "lucide-react";
 
-export default function TaskItem({ task, onToggle }) {
+export default function TaskItem({ task, onToggle, showContext }) {
   return (
     <div
       onClick={onToggle}
@@ -19,15 +19,22 @@ export default function TaskItem({ task, onToggle }) {
         )}
       </div>
 
-      <span
-        className={`font-medium transition-colors ${
-          task.completed
-            ? "text-slate-500 line-through"
-            : "text-slate-200 group-hover:text-white"
-        }`}
-      >
-        {task.name}
-      </span>
+      <div className="flex flex-col min-w-0 flex-1">
+        <span
+          className={`font-medium transition-colors truncate ${
+            task.completed
+              ? "text-slate-500 line-through"
+              : "text-slate-200 group-hover:text-white"
+          }`}
+        >
+          {task.name}
+        </span>
+        {showContext && (
+          <span className="text-xs text-slate-400 mt-0.5 truncate">
+            {task.subjectSlug} • {task.topicSlug}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
