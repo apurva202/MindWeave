@@ -36,6 +36,7 @@ export default function AITools() {
   const handleClick = (id) => {
     if (id === "practice-test") navigate("/ai-tools/practice-test");
     else if (id === "explain-topic") navigate("/ai-tools/explain-topic");
+    else if (id === "doubt-solver") navigate("/ai-tools/doubt-solver");
     else console.log(id);
   };
   return (

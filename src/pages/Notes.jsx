@@ -21,7 +21,7 @@ export default function Notes() {
         {/* Header */}
         <div className="flex flex-col gap-4">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate(`/subjects/${subjectSlug}/${topicSlug}`)}
             className="flex items-center gap-2 text-slate-400 hover:text-slate-100 transition-colors w-fit"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -70,7 +70,7 @@ export default function Notes() {
                 Regenerate Notes
               </button>
               <button
-                onClick={() => navigate(-1)}
+                onClick={() => navigate(`/subjects/${subjectSlug}/${topicSlug}`)}
                 className="w-full sm:w-auto px-8 py-3 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-100 rounded-xl font-bold transition-all"
               >
                 Back to topic

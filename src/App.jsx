@@ -14,6 +14,7 @@ import Results from "./pages/Results";
 import ResultDetail from "./pages/ResultDetail";
 import Notes from "./pages/Notes";
 import ExplainTopic from "./pages/ExplainTopic";
+import DoubtSolver from "./pages/DoubtSolver";
 import { AppProvider } from "./context/AppContext";
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/ai-tools" element={<AITools />} />
             <Route path="/ai-tools/practice-test" element={<PracticeTest />} />
             <Route path="/ai-tools/explain-topic" element={<ExplainTopic />} />
+            <Route path="/ai-tools/doubt-solver" element={<DoubtSolver />} />
             <Route path="/tests" element={<Tests />} />
             <Route path="/tests/results" element={<Results />} />
             <Route path="/tests/result/:resultId" element={<ResultDetail />} />
