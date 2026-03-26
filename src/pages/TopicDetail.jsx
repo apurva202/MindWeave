@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Plus, CheckSquare } from "lucide-react";
+import { ArrowLeft, Plus, CheckSquare, BookOpen } from "lucide-react";
 import TaskItem from "../components/tasks/TaskItem";
 import AddTaskModal from "../components/tasks/AddTaskModal";
 import { useApp } from "../context/AppContext";
@@ -83,13 +83,22 @@ export default function TopicDetail() {
           </div>
         </div>
 
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-sm shadow-indigo-600/20 shrink-0"
-        >
-          <Plus className="w-5 h-5" />
-          <span>Add Task</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate(`/subjects/${subjectSlug}/${topicSlug}/notes`)}
+            className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-medium transition-colors border border-slate-700"
+          >
+            <BookOpen className="w-4 h-4" />
+            <span>Notes</span>
+          </button>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-sm shadow-indigo-600/20 shrink-0"
+          >
+            <Plus className="w-5 h-5" />
+            <span>Add Task</span>
+          </button>
+        </div>
       </div>
 
       <div className="flex-1 w-full max-w-4xl mx-auto">

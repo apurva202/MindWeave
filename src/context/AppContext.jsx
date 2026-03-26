@@ -28,6 +28,11 @@ export function AppProvider({ children }) {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [notes, setNotes] = useState(() => {
+    const saved = localStorage.getItem("notes");
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [currentTest, setCurrentTest] = useState(null);
 
   useEffect(() => {
@@ -49,6 +54,10 @@ export function AppProvider({ children }) {
   useEffect(() => {
     localStorage.setItem("results", JSON.stringify(results));
   }, [results]);
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const deleteTask = (id) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
@@ -94,6 +103,8 @@ export function AppProvider({ children }) {
         deleteTest,
         results,
         setResults,
+        notes,
+        setNotes,
         currentTest,
         setCurrentTest,
       }}

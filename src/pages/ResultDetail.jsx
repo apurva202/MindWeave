@@ -60,7 +60,7 @@ export default function ResultDetail() {
             </div>
           </div>
 
-          <div className={`px-6 py-3 rounded-2xl border ${getScoreBg()} flex flex-col items-center justify-center min-w-[120px]`}>
+          <div className={`px-6 py-3 rounded-2xl border ${getScoreBg()} flex flex-col items-center justify-center min-w-30`}>
             <span className="text-xs font-black uppercase tracking-widest opacity-60 mb-1">Score</span>
             <span className={`text-3xl font-black ${getScoreColor()}`}>
               {result.score}<span className="text-lg opacity-40">/{result.total}</span>
