@@ -116,7 +116,7 @@ Do NOT wrap in markdown.`;
       <div className="max-w-xl mx-auto w-full">
         <div className="flex items-center gap-4 mb-10">
           <button
-            onClick={() => navigate("/ai-tools")}
+            onClick={() => navigate(-1)}
             className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-slate-100 rounded-lg transition-colors border border-slate-700/50"
             aria-label="Go back"
           >
