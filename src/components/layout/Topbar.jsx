@@ -1,7 +1,10 @@
 import React from "react";
 import { Menu } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Topbar({ toggleSidebar }) {
+  const navigate = useNavigate();
+
   return (
     <header className="w-full h-16 shrink-0 bg-slate-900 border-b border-slate-700/50 z-40 flex items-center justify-between px-4 sm:px-6">
       <div className="flex items-center gap-4">
@@ -13,7 +16,10 @@ export default function Topbar({ toggleSidebar }) {
           <Menu className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-2.5">
+        <div
+          className="flex items-center gap-2.5 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           <div className="w-8 h-8 bg-linear-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
             <span className="text-white font-bold text-lg leading-none">M</span>
           </div>
