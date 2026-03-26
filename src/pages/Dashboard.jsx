@@ -41,14 +41,14 @@ function StatCard({ icon: Icon, label, value, sub, color = "indigo" }) {
     amber: "bg-amber-500/10 text-amber-400",
   };
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 flex items-center gap-4">
-      <div className={`p-3 rounded-xl ${colorMap[color]} shrink-0`}>
-        <Icon className="w-6 h-6" />
+    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 sm:p-5 flex items-center gap-3 sm:gap-4">
+      <div className={`p-2 sm:p-3 rounded-xl ${colorMap[color]} shrink-0`}>
+        <Icon className="w-4 h-4 sm:w-6 sm:h-6" />
       </div>
       <div className="min-w-0">
-        <p className="text-2xl font-black text-slate-100">{value}</p>
-        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{label}</p>
-        {sub && <p className="text-xs text-slate-500 mt-0.5">{sub}</p>}
+        <p className="text-xl sm:text-2xl font-black text-slate-100">{value}</p>
+        <p className="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">{label}</p>
+        {sub && <p className="text-[10px] sm:text-xs text-slate-500 mt-0.5">{sub}</p>}
       </div>
     </div>
   );
@@ -56,8 +56,8 @@ function StatCard({ icon: Icon, label, value, sub, color = "indigo" }) {
 
 function SectionCard({ title, children, cta, onCta, ctaIcon: CtaIcon }) {
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 flex flex-col gap-4 h-full">
-      <h2 className="text-base font-black text-slate-300 uppercase tracking-widest">{title}</h2>
+    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 flex flex-col gap-4 h-full">
+      <h2 className="text-xs sm:text-base font-black text-slate-300 uppercase tracking-widest">{title}</h2>
       <div className="flex-1">{children}</div>
       {cta && (
         <button
@@ -155,10 +155,10 @@ export default function Dashboard() {
 
         {/* ── Header ─────────────────────────────────────────── */}
         <div>
-          <h1 className="text-3xl font-black tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
             {getGreeting()} 👋
           </h1>
-          <p className="text-slate-400 font-medium mt-1">{formatDate()}</p>
+          <p className="text-slate-400 text-sm sm:text-base font-medium mt-1 truncate">{formatDate()}</p>
         </div>
 
         {/* ── Quick Stats ──────────────────────────────────────── */}
@@ -283,22 +283,22 @@ export default function Dashboard() {
 
         {/* ── AI Tools Shortcuts ───────────────────────────────── */}
         <div>
-          <h2 className="text-base font-black text-slate-300 uppercase tracking-widest mb-4">AI Tools</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <h2 className="text-xs sm:text-base font-black text-slate-300 uppercase tracking-widest mb-3 sm:mb-4">AI Tools</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {aiTools.map((tool) => (
               <button
                 key={tool.id}
                 onClick={() => navigate(tool.route)}
-                className="flex items-center gap-4 p-5 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 rounded-2xl transition-all text-left group"
+                className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 rounded-2xl transition-all text-left group active:scale-[0.98]"
               >
-                <div className={`p-3 rounded-xl ${tool.bg} ${tool.color} shrink-0 group-hover:scale-110 transition-transform`}>
-                  <tool.icon className="w-5 h-5" />
+                <div className={`p-2.5 sm:p-3 rounded-xl ${tool.bg} ${tool.color} shrink-0 group-hover:scale-110 transition-transform`}>
+                  <tool.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-slate-100">{tool.title}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-slate-100 text-sm sm:text-base">{tool.title}</p>
                   <p className="text-xs text-slate-500">{tool.desc}</p>
                 </div>
-                <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-400 ml-auto shrink-0 group-hover:translate-x-1 transition-all" />
+                <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-400 shrink-0 group-hover:translate-x-1 transition-all" />
               </button>
             ))}
           </div>

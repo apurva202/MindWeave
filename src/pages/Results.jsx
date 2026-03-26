@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ClipboardList, Calendar, ChevronRight } from "lucide-react";
+import { ClipboardList, Calendar, ChevronRight, ArrowLeft } from "lucide-react";
 import { useApp } from "../context/AppContext";
 
 export default function Results() {
@@ -34,9 +34,18 @@ export default function Results() {
   return (
     <div className="w-full h-full flex flex-col p-4 sm:p-8 bg-slate-900 overflow-y-auto">
       <div className="max-w-5xl mx-auto w-full">
-        <div className="mb-10">
-          <h1 className="text-3xl font-black text-slate-100 tracking-tight">Results History</h1>
-          <p className="text-slate-400 mt-2 font-medium">Track your progress and review past attempts</p>
+        <div className="mb-10 flex items-center gap-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-100 rounded-xl transition-colors border border-slate-700"
+            title="Go back"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <h1 className="text-3xl font-black text-slate-100 tracking-tight">Results History</h1>
+            <p className="text-slate-400 mt-1 font-medium">Track your progress and review past attempts</p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
