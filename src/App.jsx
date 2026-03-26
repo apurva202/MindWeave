@@ -15,6 +15,7 @@ import ResultDetail from "./pages/ResultDetail";
 import Notes from "./pages/Notes";
 import ExplainTopic from "./pages/ExplainTopic";
 import DoubtSolver from "./pages/DoubtSolver";
+import Dashboard from "./pages/Dashboard";
 import { AppProvider } from "./context/AppContext";
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<div>Dashboard</div>} />
+            <Route index element={<Dashboard />} />
             <Route path="/subjects" element={<Subjects />} />
             <Route path="/subjects/:subjectSlug" element={<Topics />} />
             <Route path="/tasks" element={<Tasks />} />
