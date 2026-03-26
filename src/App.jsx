@@ -6,6 +6,12 @@ import Topics from "./pages/Topics";
 import TopicDetail from "./pages/TopicDetail";
 import Tasks from "./pages/Tasks";
 import Revision from "./pages/Revision";
+import AITools from "./pages/AITools";
+import PracticeTest from "./pages/PracticeTest";
+import Tests from "./pages/Tests";
+import TestAttempt from "./pages/TestAttempt";
+import Results from "./pages/Results";
+import ResultDetail from "./pages/ResultDetail";
 import { AppProvider } from "./context/AppContext";
 
 export default function App() {
@@ -19,11 +25,17 @@ export default function App() {
             <Route path="/subjects/:subjectSlug" element={<Topics />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/revision" element={<Revision />} />
+            <Route path="/ai-tools" element={<AITools />} />
+            <Route path="/ai-tools/practice-test" element={<PracticeTest />} />
+            <Route path="/tests" element={<Tests />} />
+            <Route path="/tests/results" element={<Results />} />
+            <Route path="/tests/result/:resultId" element={<ResultDetail />} />
             <Route
               path="/subjects/:subjectSlug/:topicSlug"
               element={<TopicDetail />}
             />
           </Route>
+          <Route path="/tests/attempt/:testId" element={<TestAttempt />} />
         </Routes>
       </BrowserRouter>
     </AppProvider>

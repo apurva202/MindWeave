@@ -7,16 +7,28 @@ export function AppProvider({ children }) {
     const saved = localStorage.getItem("mindweave_subjects");
     return saved ? JSON.parse(saved) : [];
   });
-  
+
   const [topics, setTopics] = useState(() => {
     const saved = localStorage.getItem("mindweave_topics");
     return saved ? JSON.parse(saved) : [];
   });
-  
+
   const [tasks, setTasks] = useState(() => {
     const saved = localStorage.getItem("mindweave_tasks");
     return saved ? JSON.parse(saved) : [];
   });
+
+  const [tests, setTests] = useState(() => {
+    const saved = localStorage.getItem("mindweave_tests");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [results, setResults] = useState(() => {
+    const saved = localStorage.getItem("results");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [currentTest, setCurrentTest] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("mindweave_subjects", JSON.stringify(subjects));
@@ -30,8 +42,20 @@ export function AppProvider({ children }) {
     localStorage.setItem("mindweave_tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  useEffect(() => {
+    localStorage.setItem("mindweave_tests", JSON.stringify(tests));
+  }, [tests]);
+
+  useEffect(() => {
+    localStorage.setItem("results", JSON.stringify(results));
+  }, [results]);
+
   const deleteTask = (id) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const deleteTest = (id) => {
+    setTests((prev) => prev.filter((t) => t.id !== id));
   };
 
   const deleteSubject = (slug) => {
@@ -42,10 +66,14 @@ export function AppProvider({ children }) {
 
   const deleteTopic = (subjectSlug, topicSlug) => {
     setTopics((prev) =>
-      prev.filter((t) => !(t.subjectSlug === subjectSlug && t.slug === topicSlug))
+      prev.filter(
+        (t) => !(t.subjectSlug === subjectSlug && t.slug === topicSlug),
+      ),
     );
     setTasks((prev) =>
-      prev.filter((t) => !(t.subjectSlug === subjectSlug && t.topicSlug === topicSlug))
+      prev.filter(
+        (t) => !(t.subjectSlug === subjectSlug && t.topicSlug === topicSlug),
+      ),
     );
   };
 
@@ -61,6 +89,13 @@ export function AppProvider({ children }) {
         deleteTask,
         deleteSubject,
         deleteTopic,
+        tests,
+        setTests,
+        deleteTest,
+        results,
+        setResults,
+        currentTest,
+        setCurrentTest,
       }}
     >
       {children}

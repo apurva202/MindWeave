@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   BookOpen,
   CheckSquare,
+  ClipboardList,
   RotateCcw,
   Sparkles,
 } from "lucide-react";
@@ -12,6 +13,7 @@ const navItems = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/subjects", label: "Subjects", icon: BookOpen },
   { to: "/tasks", label: "Tasks", icon: CheckSquare },
+  { to: "/tests", label: "Tests", icon: ClipboardList },
   { to: "/revision", label: "Revision", icon: RotateCcw },
   { to: "/ai-tools", label: "AI Tools", icon: Sparkles },
 ];
