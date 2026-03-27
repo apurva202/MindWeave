@@ -36,7 +36,7 @@ export default function Results() {
       <div className="max-w-5xl mx-auto w-full">
         <div className="mb-10 flex items-center gap-4">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/tests")}
             className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-100 rounded-xl transition-colors border border-slate-700"
             title="Go back"
           >

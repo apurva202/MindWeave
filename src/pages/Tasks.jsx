@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Plus, CheckSquare } from "lucide-react";
+import { Plus, CheckSquare, ChevronDown } from "lucide-react";
 import TaskItem from "../components/tasks/TaskItem";
 import AddTaskModal from "../components/tasks/AddTaskModal";
 import { useApp } from "../context/AppContext";
@@ -50,9 +50,12 @@ export default function Tasks() {
   return (
     <div className="w-full h-full flex flex-col p-4 sm:p-8 bg-slate-900 overflow-y-auto">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 max-w-5xl mx-auto w-full">
-        <h1 className="text-3xl font-bold text-slate-100 min-w-0 truncate">
-          Tasks
-        </h1>
+        <div>
+          <h1 className="text-3xl font-bold text-slate-100 min-w-0 truncate">
+            Tasks
+          </h1>
+          <p className="text-slate-400 mt-1">Manage and track your study tasks</p>
+        </div>
 
         <button
           onClick={() => setIsModalOpen(true)}
@@ -63,32 +66,46 @@ export default function Tasks() {
         </button>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 mb-6 max-w-5xl mx-auto w-full">
-        <select
-          value={selectedSubject}
-          onChange={(e) => setSelectedSubject(e.target.value)}
-          className="bg-slate-800 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-w-50"
-        >
-          <option value="all">All Subjects</option>
-          {subjects.map((s) => (
-            <option key={s.slug} value={s.slug}>
-              {s.name}
-            </option>
-          ))}
-        </select>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 max-w-5xl mx-auto w-full pb-6 border-b border-slate-700/50">
+        <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+          {/* Subject Filter */}
+          <div className="relative flex-1 sm:flex-none">
+            <select
+              value={selectedSubject}
+              onChange={(e) => setSelectedSubject(e.target.value)}
+              className="w-full appearance-none bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer"
+            >
+              <option value="all">All Subjects</option>
+              {subjects.map((s) => (
+                <option key={s.slug} value={s.slug}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+          </div>
 
-        <select
-          value={selectedTopic}
-          onChange={(e) => setSelectedTopic(e.target.value)}
-          className="bg-slate-800 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-w-50"
-        >
-          <option value="all">All Topics</option>
-          {filteredTopics.map((t) => (
-            <option key={t.slug} value={t.slug}>
-              {t.name}
-            </option>
-          ))}
-        </select>
+          {/* Topic Filter */}
+          <div className="relative flex-1 sm:flex-none">
+            <select
+              value={selectedTopic}
+              onChange={(e) => setSelectedTopic(e.target.value)}
+              className="w-full appearance-none bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer"
+            >
+              <option value="all">All Topics</option>
+              {filteredTopics.map((t) => (
+                <option key={t.slug} value={t.slug}>
+                  {t.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+          </div>
+        </div>
+
+        <p className="text-slate-500 text-xs font-medium hidden sm:block">
+          {filteredTasks.length} task{filteredTasks.length !== 1 ? "s" : ""} found
+        </p>
       </div>
 
       <div className="flex-1 w-full max-w-5xl mx-auto">
