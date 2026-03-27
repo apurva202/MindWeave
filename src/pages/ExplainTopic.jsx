@@ -95,8 +95,7 @@ IMPORTANT:
       });
 
       // 3. EXTRACT RESPONSE TEXT
-      let text = response?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-
+      let text = response.text || "";
       // 4. CLEAN RESPONSE
       text = text.replace(/```/g, "").trim();
 

@@ -45,7 +45,7 @@ IMPORTANT:
         contents: prompt,
       });
 
-      let text = response?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      let text = response.text || "";
 
       // Clean Response
       text = text.replace(/```/g, "").trim();
